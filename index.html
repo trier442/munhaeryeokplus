@@ -40,6 +40,7 @@
         <a class="nav-link active" href="/">홈</a>
         <a class="nav-link" href="/books/">추천도서</a>
         <a class="nav-link" href="/topics/">주제읽기</a>
+        <a class="nav-link" href="/literacy/">학년별 문해력</a>
         <a class="nav-link" href="/debate/">토론논제</a>
         <a class="nav-link" href="/writing/">논술쓰기</a>
         <a class="nav-link" href="/guides/">교육가이드</a>
@@ -52,6 +53,7 @@
     <nav class="mobile-menu" id="mobileMenu" aria-label="모바일 메뉴">
       <a href="/books/"><b>추천도서</b><span>30권</span></a>
       <a href="/topics/"><b>주제읽기</b><span>30개</span></a>
+      <a href="/literacy/"><b>학년별 문해력</b><span>28편+테스트</span></a>
       <a href="/debate/"><b>토론논제</b><span>20개</span></a>
       <a href="/writing/"><b>논술쓰기</b><span>20강</span></a>
       <a href="/guides/"><b>교육가이드</b><span>20개</span></a>
@@ -70,7 +72,7 @@
             <a class="btn ghost" href="/books/">추천도서 둘러보기</a>
           </div>
           <div class="hero-proof" aria-label="문해력플러스 콘텐츠 구성">
-            <span><b>120</b><small>콘텐츠</small></span>
+            <span><b>149</b><small>콘텐츠</small></span>
             <i></i>
             <span><b>30</b><small>추천도서</small></span>
             <i></i>
@@ -109,12 +111,13 @@
       <section class="library-hub">
         <div class="library-hub-inner">
           <div class="library-hub-head">
-            <div><span class="eyebrow">120+ CONTENTS</span><h2>필요한 문해력 콘텐츠를 바로 찾아보세요.</h2><p>책을 읽고 싶은 날, 배경지식이 필요한 날, 토론을 준비하는 날, 글쓰기를 연습하는 날에 맞춰 선택할 수 있습니다.</p></div>
-            <button class="library-search-cta" id="openLibrarySearch"><span>⌕</span><b>120개 콘텐츠 통합검색</b><small>제목·개념·주제로 찾기</small></button>
+            <div><span class="eyebrow">149+ CONTENTS</span><h2>필요한 문해력 콘텐츠를 바로 찾아보세요.</h2><p>책을 읽고 싶은 날, 배경지식이 필요한 날, 토론을 준비하는 날, 글쓰기를 연습하는 날에 맞춰 선택할 수 있습니다.</p></div>
+            <button class="library-search-cta" id="openLibrarySearch"><span>⌕</span><b>149개 콘텐츠 통합검색</b><small>제목·개념·주제로 찾기</small></button>
           </div>
           <div class="library-category-grid">
             <a href="/books/"><strong>30</strong><span>추천도서</span><small>읽기 전·중·후 질문까지</small></a>
             <a href="/topics/"><strong>30</strong><span>주제읽기</span><small>문해력·AI·경제·심리</small></a>
+            <a href="/literacy/"><strong>28</strong><span>학년별 문해력</span><small>초3~중3 읽기 + 무료 테스트</small></a>
             <a href="/debate/"><strong>20</strong><span>토론논제</span><small>찬반보다 판단 기준부터</small></a>
             <a href="/writing/"><strong>20</strong><span>논술쓰기</span><small>기초부터 실전 유형까지</small></a>
             <a href="/guides/"><strong>20</strong><span>교육가이드</span><small>학생·학부모·교사용</small></a>
@@ -182,8 +185,8 @@
             <article><span class="journey-label">학부모·교사</span><h3>독서논술을 지도하고 싶다면</h3><ol><li><b>교육가이드</b>에서 상황별 원칙을 봅니다.</li><li><b>추천도서</b>와 질문을 선택합니다.</li><li><b>토론·쓰기</b> 활동으로 연결합니다.</li></ol><a href="/guides/">교육가이드에서 시작 →</a></article>
           </div>
           <div class="site-principles">
-            <span><b>120개</b> 핵심 콘텐츠</span>
-            <span><b>5개</b> 학습 영역</span>
+            <span><b>149개</b> 핵심 콘텐츠</span>
+            <span><b>6개</b> 학습 영역</span>
             <span><b>읽기 → 질문 → 판단 → 표현</b> 하나의 학습 흐름</span>
           </div>
         </div>
@@ -271,7 +274,7 @@
     <div class="search-panel">
       <div class="search-panel-head">
         <span class="eyebrow">LITERACY PLUS SEARCH</span>
-        <h2>120개 콘텐츠에서 찾아보세요.</h2>
+        <h2>149개 콘텐츠에서 찾아보세요.</h2>
       </div>
       <div class="search-top">
         <input id="globalSearch" type="search" placeholder="예: AI, 공정, 동물농장, 반론, 어휘">
@@ -285,7 +288,7 @@
         <button data-search-term="토론">토론</button>
         <button data-search-term="논술">논술</button>
       </div>
-      <div class="search-status" id="searchStatus">추천도서 30 · 주제읽기 30 · 토론논제 20 · 논술쓰기 20 · 교육가이드 20</div>
+      <div class="search-status" id="searchStatus">추천도서 30 · 주제읽기 30 · 학년별 문해력 28 · 토론논제 20 · 논술쓰기 20 · 교육가이드 20 · 무료 테스트</div>
       <div id="searchResults"></div>
     </div>
   </div>
@@ -296,7 +299,7 @@
       <a class="footer-brand" href="/"><span class="brand-mark">M+</span><span><strong>문해력플러스</strong><small>읽는 힘 + 생각하는 힘 + 표현하는 힘</small></span></a>
       <p>읽기에서 질문으로, 질문에서 판단으로, 판단에서 토론과 글쓰기로 이어지는 독서논술 교육 콘텐츠를 제공합니다.</p>
     </div>
-    <div class="footer-link-block"><b>콘텐츠</b><a href="/books/">추천도서</a><a href="/topics/">주제읽기</a><a href="/debate/">토론논제</a><a href="/writing/">논술쓰기</a><a href="/guides/">교육가이드</a></div>
+    <div class="footer-link-block"><b>콘텐츠</b><a href="/books/">추천도서</a><a href="/topics/">주제읽기</a><a href="/literacy/">학년별 문해력</a><a href="/debate/">토론논제</a><a href="/writing/">논술쓰기</a><a href="/guides/">교육가이드</a></div>
     <div class="footer-link-block"><b>문해력플러스</b><a href="/about/">사이트 소개</a><a href="/faq/">자주 묻는 질문</a><a href="/sitemap.xml">사이트맵</a></div>
   </div>
   <div class="footer-bottom"><span>© 2026 LITERACY PLUS</span><span>munhaeryeokplus.com</span></div>

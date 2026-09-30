@@ -3402,11 +3402,303 @@ const contentPaths={
   "guide-common-grade": "/guides/reading-by-age/",
   "guide-common-discussion": "/guides/discussion-at-home-class/",
   "guide-common-news": "/guides/news-reading-guide/",
-  "guide-common-routine": "/guides/weekly-literacy-routine/"
+  "guide-common-routine": "/guides/weekly-literacy-routine/",
+  "literacy-01": "/literacy/literacy-grade3-crosswalk.html",
+  "literacy-02": "/literacy/literacy-grade4-pet-responsibility.html",
+  "literacy-03": "/literacy/literacy-grade5-weekend-library.html",
+  "literacy-04": "/literacy/literacy-grade6-plastic-packaging.html",
+  "literacy-05": "/literacy/literacy-grade7-smartphone-rules.html",
+  "literacy-06": "/literacy/literacy-grade8-transit-support.html",
+  "literacy-07": "/literacy/literacy-grade9-ai-disclosure.html",
+  "literacy-08": "/literacy/literacy-grade3-lunch-waste.html",
+  "literacy-09": "/literacy/literacy-grade4-allowance-record.html",
+  "literacy-10": "/literacy/literacy-grade5-school-garden.html",
+  "literacy-11": "/literacy/literacy-grade6-kids-app-ads.html",
+  "literacy-12": "/literacy/literacy-grade7-assignment-feedback.html",
+  "literacy-13": "/literacy/literacy-grade8-library-youth-space.html",
+  "literacy-14": "/literacy/literacy-grade9-recommendation-explanation.html",
+  "literacy-15": "/literacy/literacy-grade3-playground-rules.html",
+  "literacy-16": "/literacy/literacy-grade4-refill-water-bottle.html",
+  "literacy-17": "/literacy/literacy-grade5-school-idling.html",
+  "literacy-18": "/literacy/literacy-grade6-unused-medicine-return.html",
+  "literacy-19": "/literacy/literacy-grade7-deepfake-literacy.html",
+  "literacy-20": "/literacy/literacy-grade8-disaster-alert-action.html",
+  "literacy-21": "/literacy/literacy-grade9-short-video-breaks.html",
+  "literacy-22": "/literacy/literacy-grade3-library-return.html",
+  "literacy-23": "/literacy/literacy-grade4-bicycle-helmet.html",
+  "literacy-24": "/literacy/literacy-grade5-classroom-ventilation.html",
+  "literacy-25": "/literacy/literacy-grade6-food-date-label.html",
+  "literacy-26": "/literacy/literacy-grade7-youth-sports-hours.html",
+  "literacy-27": "/literacy/literacy-grade8-delivery-robot-sidewalk.html",
+  "literacy-28": "/literacy/literacy-grade9-right-to-repair.html",
+  "literacy-test": "/literacy/selection.html"
 };
 function contentUrl(id){return contentPaths[id]||"/"}
 
-const allSearch=[...books.map(x=>({...x,type:"추천도서"})),...topics,...debates,...writing,...guides];
+const legacyLiteracy=[
+  {
+    "id": "literacy-01",
+    "type": "학년별 문해력",
+    "category": "교통안전",
+    "level": "초등 3학년",
+    "title": "학교 앞 횡단보도에서는 뛰지 말아요",
+    "summary": "위험한 까닭과 안전한 행동 순서를 읽고 중심 내용을 찾습니다.",
+    "url": "/literacy/literacy-grade3-crosswalk.html"
+  },
+  {
+    "id": "literacy-02",
+    "type": "학년별 문해력",
+    "category": "생명 존중",
+    "level": "초등 4학년",
+    "title": "반려동물은 끝까지 책임져야 합니다",
+    "summary": "반려동물을 맞는 선택에 따르는 책임과 근거를 정리합니다.",
+    "url": "/literacy/literacy-grade4-pet-responsibility.html"
+  },
+  {
+    "id": "literacy-03",
+    "type": "학년별 문해력",
+    "category": "공공시설",
+    "level": "초등 5학년",
+    "title": "주말에도 지역 도서관을 충분히 열어야 합니다",
+    "summary": "주장·근거·반론·대안으로 이어지는 사설의 구조를 살펴봅니다.",
+    "url": "/literacy/literacy-grade5-weekend-library.html"
+  },
+  {
+    "id": "literacy-04",
+    "type": "학년별 문해력",
+    "category": "환경과 소비",
+    "level": "초등 6학년",
+    "title": "상품의 플라스틱 포장을 줄여야 합니다",
+    "summary": "포장의 필요성과 환경 문제를 함께 고려한 해결책을 찾습니다.",
+    "url": "/literacy/literacy-grade6-plastic-packaging.html"
+  },
+  {
+    "id": "literacy-05",
+    "type": "학년별 문해력",
+    "category": "디지털 생활",
+    "level": "중학교 1학년",
+    "title": "교내 스마트폰 사용에는 분명한 규칙이 필요하다",
+    "summary": "학습권과 편리함을 조정하는 규칙의 조건을 분석합니다.",
+    "url": "/literacy/literacy-grade7-smartphone-rules.html"
+  },
+  {
+    "id": "literacy-06",
+    "type": "학년별 문해력",
+    "category": "이동권과 복지",
+    "level": "중학교 2학년",
+    "title": "청소년 대중교통비 지원을 확대할 필요가 있다",
+    "summary": "정책을 둘러싼 재정·형평성·사회적 효과를 평가합니다.",
+    "url": "/literacy/literacy-grade8-transit-support.html"
+  },
+  {
+    "id": "literacy-07",
+    "type": "학년별 문해력",
+    "category": "인공지능 윤리",
+    "level": "중학교 3학년",
+    "title": "인공지능 활용 과제에는 사용 과정과 출처를 밝혀야 한다",
+    "summary": "공정성·검증·책임의 관점에서 논증의 타당성을 따져 봅니다.",
+    "url": "/literacy/literacy-grade9-ai-disclosure.html"
+  },
+  {
+    "id": "literacy-08",
+    "type": "학년별 문해력",
+    "category": "급식과 환경",
+    "level": "초등 3학년",
+    "title": "학교 급식은 먹을 만큼만 받아야 해요",
+    "summary": "급식이 버려지는 까닭과 줄이는 방법을 읽고 원인과 해결 방법을 구분합니다.",
+    "url": "/literacy/literacy-grade3-lunch-waste.html"
+  },
+  {
+    "id": "literacy-09",
+    "type": "학년별 문해력",
+    "category": "경제생활",
+    "level": "초등 4학년",
+    "title": "용돈을 쓴 뒤에는 기록하는 습관이 필요합니다",
+    "summary": "용돈 기록이 선택과 계획에 어떤 도움을 주는지 읽고 주장과 근거를 연결합니다.",
+    "url": "/literacy/literacy-grade4-allowance-record.html"
+  },
+  {
+    "id": "literacy-10",
+    "type": "학년별 문해력",
+    "category": "학교 공간",
+    "level": "초등 5학년",
+    "title": "학교에 학생이 가꾸는 작은 텃밭을 늘려야 합니다",
+    "summary": "학교 텃밭의 교육적 가치와 관리 부담을 함께 살피며 반론과 대안을 찾습니다.",
+    "url": "/literacy/literacy-grade5-school-garden.html"
+  },
+  {
+    "id": "literacy-11",
+    "type": "학년별 문해력",
+    "category": "미디어 소비",
+    "level": "초등 6학년",
+    "title": "어린이용 앱의 광고는 더 분명하게 표시해야 합니다",
+    "summary": "광고와 정보가 섞일 때 생기는 문제를 살피고 어린이에게 필요한 표시 원칙을 생각합니다.",
+    "url": "/literacy/literacy-grade6-kids-app-ads.html"
+  },
+  {
+    "id": "literacy-12",
+    "type": "학년별 문해력",
+    "category": "수업과 평가",
+    "level": "중학교 1학년",
+    "title": "학교 과제에는 점수만큼 구체적인 피드백이 필요하다",
+    "summary": "과제 피드백의 교육적 가치와 교사의 업무 부담을 함께 고려하며 실행 가능한 기준을 찾습니다.",
+    "url": "/literacy/literacy-grade7-assignment-feedback.html"
+  },
+  {
+    "id": "literacy-13",
+    "type": "학년별 문해력",
+    "category": "청소년 공간",
+    "level": "중학교 2학년",
+    "title": "공공도서관에 청소년 전용 활동 공간이 필요하다",
+    "summary": "도서관의 조용한 열람 기능과 청소년 활동 요구가 충돌할 때 공간을 조정하는 방법을 분석합니다.",
+    "url": "/literacy/literacy-grade8-library-youth-space.html"
+  },
+  {
+    "id": "literacy-14",
+    "type": "학년별 문해력",
+    "category": "플랫폼과 정보",
+    "level": "중학교 3학년",
+    "title": "온라인 플랫폼은 콘텐츠 추천 이유를 설명해야 한다",
+    "summary": "추천 알고리즘의 편리함과 정보 편식 문제를 살피고 설명 가능성의 범위를 평가합니다.",
+    "url": "/literacy/literacy-grade9-recommendation-explanation.html"
+  },
+  {
+    "id": "literacy-15",
+    "type": "학년별 문해력",
+    "category": "놀이와 안전",
+    "level": "초등 3학년",
+    "title": "놀이터에서는 차례와 안전 규칙을 함께 지켜요",
+    "summary": "즐겁고 안전하게 놀기 위해 필요한 차례와 기구별 안전 행동을 읽습니다.",
+    "url": "/literacy/literacy-grade3-playground-rules.html"
+  },
+  {
+    "id": "literacy-16",
+    "type": "학년별 문해력",
+    "category": "환경 실천",
+    "level": "초등 4학년",
+    "title": "학교에서는 개인 물병을 다시 채워 써야 합니다",
+    "summary": "일회용 컵을 줄이는 실천과 위생 문제를 함께 살피며 조건에 맞는 해결책을 찾습니다.",
+    "url": "/literacy/literacy-grade4-refill-water-bottle.html"
+  },
+  {
+    "id": "literacy-17",
+    "type": "학년별 문해력",
+    "category": "교통과 건강",
+    "level": "초등 5학년",
+    "title": "학교 앞 자동차 공회전을 줄여야 합니다",
+    "summary": "등하교 시간의 공회전이 만드는 문제와 운전자·학교가 함께 실천할 방법을 살핍니다.",
+    "url": "/literacy/literacy-grade5-school-idling.html"
+  },
+  {
+    "id": "literacy-18",
+    "type": "학년별 문해력",
+    "category": "건강과 지역사회",
+    "level": "초등 6학년",
+    "title": "사용하지 않는 약은 정해진 곳에 돌려보내야 합니다",
+    "summary": "남은 약을 함부로 버릴 때 생기는 문제와 안전한 회수 방법을 원인과 결과로 분석합니다.",
+    "url": "/literacy/literacy-grade6-unused-medicine-return.html"
+  },
+  {
+    "id": "literacy-19",
+    "type": "학년별 문해력",
+    "category": "미디어 교육",
+    "level": "중학교 1학년",
+    "title": "학교에서 딥페이크 판별 교육을 정기적으로 해야 한다",
+    "summary": "합성 콘텐츠의 활용 가능성과 피해를 구분하고 판별·공유·신고 교육의 필요성을 따집니다.",
+    "url": "/literacy/literacy-grade7-deepfake-literacy.html"
+  },
+  {
+    "id": "literacy-20",
+    "type": "학년별 문해력",
+    "category": "재난 정보",
+    "level": "중학교 2학년",
+    "title": "재난 알림은 상황과 행동을 함께 알려야 한다",
+    "summary": "경고 메시지가 실제 행동으로 이어지려면 어떤 정보와 표현이 필요한지 분석합니다.",
+    "url": "/literacy/literacy-grade8-disaster-alert-action.html"
+  },
+  {
+    "id": "literacy-21",
+    "type": "학년별 문해력",
+    "category": "디지털 건강",
+    "level": "중학교 3학년",
+    "title": "짧은 영상 플랫폼은 연속 시청을 멈출 선택권을 강화해야 한다",
+    "summary": "자동 재생과 무한 화면이 이용 시간을 늘리는 방식을 살피고 개인 책임과 플랫폼 책임을 조정합니다.",
+    "url": "/literacy/literacy-grade9-short-video-breaks.html"
+  },
+  {
+    "id": "literacy-22",
+    "type": "학년별 문해력",
+    "category": "도서관 예절",
+    "level": "초등 3학년",
+    "title": "도서관 책은 약속한 날까지 돌려주어야 해요",
+    "summary": "공공 도서를 제때 반납해야 하는 까닭과 잊지 않기 위한 방법을 읽습니다.",
+    "url": "/literacy/literacy-grade3-library-return.html"
+  },
+  {
+    "id": "literacy-23",
+    "type": "학년별 문해력",
+    "category": "자전거 안전",
+    "level": "초등 4학년",
+    "title": "가까운 거리라도 자전거 안전모를 써야 합니다",
+    "summary": "거리의 길이와 사고 위험을 구분하고 안전모와 출발 전 점검의 필요성을 읽습니다.",
+    "url": "/literacy/literacy-grade4-bicycle-helmet.html"
+  },
+  {
+    "id": "literacy-24",
+    "type": "학년별 문해력",
+    "category": "교실 환경",
+    "level": "초등 5학년",
+    "title": "교실 환기는 시간표처럼 규칙적으로 해야 합니다",
+    "summary": "쾌적한 교실을 위해 환기가 필요한 까닭과 날씨·안전을 고려한 방법을 분석합니다.",
+    "url": "/literacy/literacy-grade5-classroom-ventilation.html"
+  },
+  {
+    "id": "literacy-25",
+    "type": "학년별 문해력",
+    "category": "식품과 정보",
+    "level": "초등 6학년",
+    "title": "식품 날짜 표시는 버리는 날이 아니라 판단 기준이 되어야 합니다",
+    "summary": "식품의 날짜만 보고 바로 버리는 행동을 돌아보고 보관 상태와 안전을 함께 판단하는 법을 읽습니다.",
+    "url": "/literacy/literacy-grade6-food-date-label.html"
+  },
+  {
+    "id": "literacy-26",
+    "type": "학년별 문해력",
+    "category": "공공시설 이용",
+    "level": "중학교 1학년",
+    "title": "청소년이 공공 체육시설을 이용할 시간을 넓혀야 한다",
+    "summary": "방과 후 이용 기회와 안전·운영 비용을 함께 고려해 공공 체육시설의 시간 배분을 분석합니다.",
+    "url": "/literacy/literacy-grade7-youth-sports-hours.html"
+  },
+  {
+    "id": "literacy-27",
+    "type": "학년별 문해력",
+    "category": "새로운 이동 기술",
+    "level": "중학교 2학년",
+    "title": "배달 로봇의 보도 운행에는 보행자 우선 규칙이 필요하다",
+    "summary": "배달 로봇의 편리함과 보도 안전이 충돌할 때 속도·양보·책임 기준을 분석합니다.",
+    "url": "/literacy/literacy-grade8-delivery-robot-sidewalk.html"
+  },
+  {
+    "id": "literacy-28",
+    "type": "학년별 문해력",
+    "category": "소비자 권리",
+    "level": "중학교 3학년",
+    "title": "디지털 기기는 고칠 수 있도록 설계되어야 한다",
+    "summary": "수리 가능성이 소비자 선택과 전자 폐기물에 미치는 영향을 살피고 안전·기술 보호 반론을 평가합니다.",
+    "url": "/literacy/literacy-grade9-right-to-repair.html"
+  },
+  {
+    "id": "literacy-test",
+    "type": "문해력 테스트",
+    "category": "초3~중3",
+    "level": "초3~중3",
+    "title": "학년별 무료 문해력 테스트",
+    "summary": "학년에 따라 15~25문항을 풀고 정보 파악·추론·어휘 역량을 확인합니다.",
+    "url": "/literacy/selection.html"
+  }
+];
+const allSearch=[...books.map(x=>({...x,type:"추천도서"})),...topics,...debates,...writing,...guides,...legacyLiteracy];
 let currentRoute="home",previousRoute="home",bookLevel="전체",topicCategory="전체";
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -3476,7 +3768,7 @@ function openSearch(){
   $("#searchOverlay").classList.add("open");
   $("#searchOverlay").setAttribute("aria-hidden","false");
   $("#globalSearch").value="";
-  $("#searchStatus").textContent="추천도서 30 · 주제읽기 30 · 토론논제 20 · 논술쓰기 20 · 교육가이드 20";
+  $("#searchStatus").textContent="추천도서 30 · 주제읽기 30 · 학년별 문해력 28 · 토론논제 20 · 논술쓰기 20 · 교육가이드 20 · 무료 테스트";
   $("#searchResults").innerHTML='<div class="empty-state">검색어를 입력하거나 빠른 검색어를 선택해 보세요.</div>';
   setTimeout(()=>$("#globalSearch").focus(),50);
 }
@@ -3484,7 +3776,7 @@ function closeSearch(){$("#searchOverlay").classList.remove("open");$("#searchOv
 function runSearch(){
   const q=$("#globalSearch").value.trim().toLowerCase();
   if(!q){
-    $("#searchStatus").textContent="추천도서 30 · 주제읽기 30 · 토론논제 20 · 논술쓰기 20 · 교육가이드 20";
+    $("#searchStatus").textContent="추천도서 30 · 주제읽기 30 · 학년별 문해력 28 · 토론논제 20 · 논술쓰기 20 · 교육가이드 20 · 무료 테스트";
     $("#searchResults").innerHTML='<div class="empty-state">검색어를 입력하거나 빠른 검색어를 선택해 보세요.</div>';
     return;
   }
