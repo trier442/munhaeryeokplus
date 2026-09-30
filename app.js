@@ -3722,8 +3722,26 @@ function bindRoutes(){
 function cardHtml(item){
   return `<article class="content-card"><span class="card-kicker">${item.type||item.category}</span><h3>${item.title}</h3><p>${item.summary||item.desc}</p><div class="meta-row"><span class="tag">${item.level||item.audience||""}</span>${item.category?'<span class="tag">'+item.category+'</span>':""}</div><a class="text-link" href="${contentUrl(item.id)}">읽어보기 →</a></article>`;
 }
+function dailyIndex(length,salt=0){
+  if(!length)return 0;
+  const d=new Date();
+  const day=Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000);
+  return Math.abs(day*37+salt*101)%length;
+}
+function dailyPick(arr,salt=0){
+  return arr[dailyIndex(arr.length,salt)];
+}
 function renderFeatured(){
-  $("#featuredContent").innerHTML=[topics[3],debates[0],writing[0]].map(cardHtml).join("");
+  const literacyItems=legacyLiteracy.filter(x=>x.type==="학년별 문해력");
+  const featured=[
+    {...dailyPick(books,1),type:"추천도서"},
+    dailyPick(topics,2),
+    dailyPick(literacyItems,3),
+    dailyPick(debates,4),
+    dailyPick(writing,5),
+    dailyPick(guides,6)
+  ].filter(Boolean);
+  $("#featuredContent").innerHTML=featured.map(cardHtml).join("");
   bindContent();
 }
 function renderBooks(){
