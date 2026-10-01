@@ -235,3 +235,6 @@ a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{o
 @media(max-width:680px){.section-subcopy{font-size:10px}.section-head{display:block}.section-head>.text-link{display:inline-block;margin-top:10px}}
 
 .related-head p{margin:5px 0 0;color:var(--muted);font-size:11px;line-height:1.7;max-width:680px}
+
+.archive-breadcrumb{max-width:1180px;margin:0 auto;padding:18px 24px 0;display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:10px;color:var(--muted)}.archive-breadcrumb a{text-decoration:none;color:var(--muted)}.archive-breadcrumb a:hover{color:var(--green)}.archive-breadcrumb b{color:var(--ink);font-weight:800}.archive-breadcrumb span{color:#aeb8b3}
+@media(max-width:680px){.archive-breadcrumb{padding:14px 18px 0;font-size:9px}}
