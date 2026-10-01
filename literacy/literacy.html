@@ -58,4 +58,4 @@
 let activeGrade="전체";const cards=[...document.querySelectorAll(".lp-reading-card")],input=document.getElementById("literacySearch"),empty=document.getElementById("literacyEmpty");
 function apply(){const q=input.value.trim().toLowerCase();let shown=0;cards.forEach(c=>{const okGrade=activeGrade==="전체"||c.dataset.grade===activeGrade;const okSearch=!q||c.dataset.search.includes(q);const yes=okGrade&&okSearch;c.style.display=yes?"block":"none";if(yes)shown++});empty.hidden=shown!==0}
 document.querySelectorAll("[data-grade]").forEach(b=>b.onclick=()=>{activeGrade=b.dataset.grade;document.querySelectorAll("[data-grade]").forEach(x=>x.classList.toggle("active",x===b));apply()});input.oninput=apply;
-</script></body></html>
+</script><script src="/site-ui.js"></script></body></html>
