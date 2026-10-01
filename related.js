@@ -6,6 +6,38 @@ if(!document.querySelector('link[rel="icon"]')){const l=document.createElement("
 const typeBase={"추천도서":["추천도서","/books/"],"주제읽기":["주제읽기","/topics/"],"학년별 문해력":["학년별 문해력","/literacy/"],"토론논제":["토론논제","/debate/"],"논술쓰기":["논술쓰기","/writing/"],"교육가이드":["교육가이드","/guides/"]}[current.type];
 if(typeBase){const ld=document.createElement("script");ld.type="application/ld+json";ld.textContent=JSON.stringify({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"문해력플러스","item":"https://munhaeryeokplus.com/"},{"@type":"ListItem","position":2,"name":typeBase[0],"item":"https://munhaeryeokplus.com"+typeBase[1]},{"@type":"ListItem","position":3,"name":current.title,"item":"https://munhaeryeokplus.com"+current.url}]});document.head.appendChild(ld)}
 
+const pageDescription=(document.querySelector('meta[name="description"]')||{}).content||current.title;
+const canonical=(document.querySelector('link[rel="canonical"]')||{}).href||("https://munhaeryeokplus.com"+current.url);
+const hasArticleSchema=[...document.querySelectorAll('script[type="application/ld+json"]')].some(s=>/"@type"\s*:\s*"Article"/.test(s.textContent));
+const resource=document.createElement("script");
+resource.type="application/ld+json";
+resource.textContent=JSON.stringify({
+  "@context":"https://schema.org",
+  "@type":hasArticleSchema?"LearningResource":["Article","LearningResource"],
+  "headline":current.title,
+  "name":current.title,
+  "description":pageDescription,
+  "url":canonical,
+  "mainEntityOfPage":{"@type":"WebPage","@id":canonical},
+  "inLanguage":"ko",
+  "learningResourceType":current.type,
+  "educationalLevel":current.level||"전체",
+  "isAccessibleForFree":true,
+  "author":{"@type":"Organization","name":"문해력플러스 편집팀","url":"https://munhaeryeokplus.com/about/"},
+  "publisher":{"@type":"Organization","name":"문해력플러스","url":"https://munhaeryeokplus.com/","logo":{"@type":"ImageObject","url":"https://munhaeryeokplus.com/favicon.svg"}},
+  "isPartOf":{"@type":"WebSite","name":"문해력플러스","url":"https://munhaeryeokplus.com/"}
+});
+document.head.appendChild(resource);
+
+if(!document.querySelector(".breadcrumb")&&!document.querySelector(".lp-breadcrumb")&&current.type==="학년별 문해력"){
+  const bc=document.createElement("nav");
+  bc.className="lp-breadcrumb";
+  bc.setAttribute("aria-label","현재 위치");
+  bc.innerHTML='<a href="/">홈</a><span>›</span><a href="/literacy/">학년별 문해력</a><span>›</span><b>'+esc(current.title)+'</b>';
+  const main=document.querySelector("main"),hero=main?.querySelector(".hero");
+  if(main&&hero)main.insertBefore(bc,hero);
+}
+
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
 const sameType=items.filter(x=>x.type===current.type);
 const clusterRules=[
