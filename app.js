@@ -3792,29 +3792,43 @@ function openSearch(){
 }
 function closeSearch(){$("#searchOverlay").classList.remove("open");$("#searchOverlay").setAttribute("aria-hidden","true")}
 function runSearch(){
-  const q=$("#globalSearch").value.trim().toLowerCase();
+  const normalize=v=>(v||"").toString().toLowerCase().replace(/\\s+/g," ").trim();
+  const q=normalize($("#globalSearch").value);
   if(!q){
     $("#searchStatus").textContent="추천도서 30 · 주제읽기 30 · 학년별 문해력 28 · 토론논제 20 · 논술쓰기 20 · 교육가이드 20 · 무료 테스트";
     $("#searchResults").innerHTML='<div class="empty-state">검색어를 입력하거나 빠른 검색어를 선택해 보세요.</div>';
     return;
   }
+  const terms=q.split(" ").filter(Boolean);
   const scored=allSearch.map(x=>{
-    const title=(x.title||"").toLowerCase();
-    const category=(x.category||x.type||"").toLowerCase();
-    const summary=(x.summary||x.desc||"").toLowerCase();
-    const blob=JSON.stringify(x).toLowerCase();
+    const title=normalize(x.title);
+    const type=normalize(x.type||"추천도서");
+    const category=normalize(x.category);
+    const summary=normalize(x.summary||x.desc);
+    const author=normalize(x.author);
+    const level=normalize(x.level||x.audience);
+    const core=[title,type,category,summary,author,level].join(" ");
+    const blob=normalize(JSON.stringify(x));
+    if(!terms.every(t=>blob.includes(t)))return {x,score:0};
+
     let score=0;
-    if(title===q)score+=100;
-    if(title.startsWith(q))score+=50;
-    if(title.includes(q))score+=30;
-    if(category.includes(q))score+=15;
-    if(summary.includes(q))score+=10;
-    if(blob.includes(q))score+=2;
+    if(title===q)score+=120;
+    if(title.startsWith(q))score+=60;
+    terms.forEach(t=>{
+      if(title.includes(t))score+=32;
+      if(type.includes(t))score+=20;
+      if(category.includes(t))score+=18;
+      if(summary.includes(t))score+=12;
+      if(author.includes(t))score+=10;
+      if(level.includes(t))score+=8;
+      if(!core.includes(t)&&blob.includes(t))score+=3;
+    });
     return {x,score};
-  }).filter(v=>v.score>0).sort((a,b)=>b.score-a.score||a.x.title.localeCompare(b.x.title,"ko"));
+  }).filter(v=>v.score>=8).sort((a,b)=>b.score-a.score||a.x.title.localeCompare(b.x.title,"ko"));
+
   const arr=scored.slice(0,24).map(v=>v.x);
-  $("#searchStatus").textContent=arr.length?("검색 결과 "+scored.length+"개"+(scored.length>24?" · 상위 24개 표시":"")):"검색 결과 0개";
-  $("#searchResults").innerHTML=arr.length?arr.map(x=>'<a class="search-result" href="'+contentUrl(x.id)+'"><span>'+(x.type||"추천도서")+(x.category?" · "+x.category:"")+'</span><b>'+x.title+'</b><small>'+(x.summary||x.desc||"")+'</small></a>').join(""):'<div class="empty-state">검색 결과가 없습니다. 다른 단어로 검색해 보세요.</div>';
+  $("#searchStatus").textContent=arr.length?("검색 결과 "+scored.length+"개"+(scored.length>24?" · 관련도 높은 24개 표시":"")):"검색 결과 0개";
+  $("#searchResults").innerHTML=arr.length?arr.map(x=>'<a class="search-result" href="'+contentUrl(x.id)+'"><span>'+(x.type||"추천도서")+(x.category?" · "+x.category:"")+'</span><b>'+x.title+'</b><small>'+(x.summary||x.desc||"")+'</small></a>').join(""):'<div class="empty-state">검색 결과가 없습니다. 제목이나 핵심 주제어로 다시 검색해 보세요.</div>';
 }
 $("#openSearch").onclick=openSearch;$("#openLibrarySearch").onclick=openSearch;$("#closeSearch").onclick=closeSearch;$("#globalSearch").oninput=runSearch;document.querySelectorAll("[data-search-term]").forEach(b=>b.onclick=()=>{$("#globalSearch").value=b.dataset.searchTerm;runSearch();$("#globalSearch").focus()});$("#searchOverlay").onclick=e=>{if(e.target.id==="searchOverlay")closeSearch()};
 $("#detailBack").onclick=()=>route(previousRoute||"home");
